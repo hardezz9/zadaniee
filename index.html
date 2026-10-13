@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практические задания JavaScript №136–154</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #f1f4f9;
+            color: #202b3c;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #3347c8, #8057dc);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+
+        header h1 {
+            margin-top: 0;
+        }
+
+        .info {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: #4658d8;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #3042bd;
+        }
+
+        .console {
+            background: #17202e;
+            color: #d7f7df;
+            padding: 20px;
+            border-radius: 12px;
+            min-height: 250px;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            font-family: Consolas, monospace;
+            line-height: 1.7;
+        }
+
+        .hint {
+            color: #667085;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            header {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>JavaScript практикумы</h1>
+            <p>Задания №136–154</p>
+            <p>Условные операторы, циклы, массивы и функции</p>
+        </header>
+
+        <section class="info">
+            <h2>Результаты выполнения</h2>
+            <p>
+                Нажми кнопку, чтобы повторно запустить все задания
+                и увидеть результаты ниже.
+            </p>
+
+            <button id="runButton">Запустить задания</button>
+            <button id="clearButton">Очистить результаты</button>
+        </section>
+
+        <section class="info">
+            <h2>Консоль программы</h2>
+            <div id="output" class="console">Нажми «Запустить задания».</div>
+        </section>
+
+        <p class="hint">
+            Для просмотра ошибок открой инструменты разработчика браузера
+            клавишей F12 и выбери Console.
+        </p>
+    </div>
+
+    <script>
+        const outputElement = document.getElementById("output");
+
+        document.getElementById("runButton").addEventListener("click", () => {
+            outputElement.textContent = "";
+
+            const originalLog = console.log;
+            const originalError = console.error;
+
+            function formatValue(value) {
+                if (typeof value === "object" && value !== null) {
+                    try {
+                        return JSON.stringify(value, null, 2);
+                    } catch {
+                        return String(value);
+                    }
+                }
+
+                return String(value);
+            }
+
+            console.log = (...args) => {
+                const line = args.map(formatValue).join(" ");
+                outputElement.textContent += line + "\n";
+                originalLog.apply(console, args);
+            };
+
+            console.error = (...args) => {
+                const line = "ОШИБКА: " + args.map(formatValue).join(" ");
+                outputElement.textContent += line + "\n";
+                originalError.apply(console, args);
+            };
+
+            try {
+                outputElement.textContent = "Запуск заданий...\n\n";
+
+                const oldScript = document.getElementById("taskScript");
+                if (oldScript) {
+                    oldScript.remove();
+                }
+
+                const script = document.createElement("script");
+                script.id = "taskScript";
+                script.src = "script.js?time=" + Date.now();
+
+                script.onload = () => {
+                    outputElement.textContent += "\nВсе задания запущены.";
+                };
+
+                script.onerror = () => {
+                    outputElement.textContent +=
+                        "\nНе удалось загрузить script.js. Проверь имя файла и папку.";
+                };
+
+                document.body.appendChild(script);
+            } catch (error) {
+                outputElement.textContent += "\n" + error.message;
+            }
+        });
+
+        document.getElementById("clearButton").addEventListener("click", () => {
+            outputElement.textContent = "";
+        });
+    </script>
+</body>
+</html>

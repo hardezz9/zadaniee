@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Project Lab — задания 155–160</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 28px;
+            font-family: Arial, sans-serif;
+            background: #f2f5fb;
+            color: #202a3b;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .hero {
+            padding: 32px;
+            border-radius: 20px;
+            color: white;
+            background: linear-gradient(120deg, #243b8a, #7055dc);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            margin: 0 0 12px;
+            font-size: 32px;
+        }
+
+        .hero p {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e4e9f2;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 18px #202a3b08;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 21px;
+        }
+
+        h3 {
+            font-size: 16px;
+        }
+
+        .muted {
+            color: #6c778b;
+            font-size: 14px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin: 18px 0;
+        }
+
+        .stat {
+            padding: 17px;
+            border-radius: 12px;
+            background: #f1f3ff;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 25px;
+            color: #4658d8;
+            margin-top: 8px;
+        }
+
+        .project {
+            padding: 14px 0;
+            border-bottom: 1px solid #edf0f5;
+        }
+
+        .project:last-child {
+            border-bottom: none;
+        }
+
+        .progress {
+            height: 8px;
+            background: #e8ebf4;
+            border-radius: 20px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .progress div {
+            height: 100%;
+            background: linear-gradient(90deg, #4658d8, #8c6cf0);
+            border-radius: 20px;
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .field {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d8deea;
+            border-radius: 9px;
+            background: white;
+            color: #202a3b;
+            font-size: 15px;
+            margin-bottom: 14px;
+        }
+
+        button {
+            border: none;
+            border-radius: 9px;
+            padding: 12px 17px;
+            background: #4658d8;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 3px 3px 3px 0;
+        }
+
+        button:hover {
+            background: #3344b8;
+        }
+
+        button.secondary {
+            background: #e9edff;
+            color: #3446b8;
+        }
+
+        button.danger {
+            background: #fee9e9;
+            color: #a52a2a;
+        }
+
+        .display {
+            background: #f5f6fb;
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        #timerDisplay {
+            font-size: 40px;
+            font-weight: bold;
+            color: #4658d8;
+            margin: 12px 0;
+        }
+
+        .color-preview {
+            height: 100px;
+            border-radius: 12px;
+            border: 1px solid #d8deea;
+            margin: 12px 0;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 12px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin-top: 16px;
+        }
+
+        table {
+            width: 100%;
+            min-width: 700px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e7ebf2;
+            font-size: 14px;
+        }
+
+        th {
+            background: #f3f5fb;
+        }
+
+        td select {
+            min-width: 145px;
+            margin: 0;
+        }
+
+        .empty {
+            color: #7a8497;
+            padding: 16px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #788399;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            .hero, .card {
+                padding: 19px;
+            }
+
+            .hero h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <header class="hero">
+        <h1>IT Project Lab</h1>
+        <p>Практические задания JavaScript №155–160</p>
+        <p>Управление проектами, таймер, цветовая палитра и интерактивные инструменты.</p>
+    </header>
+
+    <section class="card">
+        <h2>155. Учёт выполнения IT-проектов</h2>
+        <p class="muted">Анализ прогресса, завершённых проектов и средней готовности.</p>
+        <div id="projectStats" class="stats"></div>
+        <div id="projectList"></div>
+        <div id="projectSummary" class="display"></div>
+    </section>
+
+    <section class="card">
+        <h2>156. Таймер обратного отсчёта</h2>
+        <label for="secondsInput">Количество секунд</label>
+        <input id="secondsInput" type="number" min="1" max="86400" value="60">
+        <div id="timerDisplay">01:00</div>
+        <div class="row">
+            <button id="startTimer">Старт</button>
+            <button id="pauseTimer" class="secondary">Пауза</button>
+            <button id="resetTimer" class="danger">Сброс</button>
+        </div>
+        <p id="timerMessage" class="result">Таймер готов к запуску.</p>
+    </section>
+
+    <section class="card">
+        <h2>157. Интерактивная цветовая палитра</h2>
+        <label for="colorInput">Выбери цвет фона</label>
+        <input id="colorInput" type="color" value="#4658d8">
+        <div id="colorPreview" class="color-preview"></div>
+        <p>HEX-код: <strong id="hexValue">#4658D8</strong></p>
+        <button id="resetColor" class="secondary">Стандартный цвет</button>
+    </section>
+
+    <section class="card">
+        <h2>158. Калькулятор стоимости поездки</h2>
+        <div class="row">
+            <div class="field">
+                <label for="distance">Расстояние (км)</label>
+                <input id="distance" type="number" min="0.1" step="any" placeholder="Например, 250">
+            </div>
+            <div class="field">
+                <label for="fuelConsumption">Расход (л / 100 км)</label>
+                <input id="fuelConsumption" type="number" min="0.1" step="any" placeholder="Например, 8">
+            </div>
+            <div class="field">
+                <label for="fuelPrice">Цена 1 литра (₸)</label>
+                <input id="fuelPrice" type="number" min="0.1" step="any" placeholder="Например, 250">
+            </div>
+        </div>
+        <button id="calculateTrip">Рассчитать</button>
+        <div id="tripResult" class="display">Введи данные поездки.</div>
+    </section>
+
+    <section class="card">
+        <h2>159. Генератор случайных вопросов</h2>
+        <p class="muted">Вопросы не повторяются, пока список не закончится.</p>
+        <div id="questionCounter" class="muted">Вопросов показано: 0 из 10</div>
+        <div id="questionDisplay" class="display">Нажми кнопку, чтобы получить вопрос.</div>
+        <div class="row">
+            <button id="nextQuestion">Следующий вопрос</button>
+            <button id="restartQuestions" class="secondary">Начать заново</button>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>160. Система регистрации IT-проектов</h2>
+        <p class="muted">Добавляй проекты, ищи их по названию и изменяй статус. Данные сохраняются в браузере.</p>
+
+        <form id="projectForm">
+            <div class="row">
+                <div class="field">
+                    <label for="projectName">Название проекта *</label>
+                    <input id="projectName" type="text" required maxlength="100" placeholder="Например, AI Assistant">
+                </div>
+                <div class="field">
+                    <label for="participantName">ФИО участника *</label>
+                    <input id="participantName" type="text" required maxlength="100" placeholder="Учебный пример">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label for="projectDirection">Направление *</label>
+                    <select id="projectDirection" required>
+                        <option value="">Выбери направление</option>
+                        <option>Искусственный интеллект</option>
+                        <option>Веб-разработка</option>
+                        <option>Мобильные приложения</option>
+                        <option>Робототехника</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="submissionDate">Дата подачи *</label>
+                    <input id="submissionDate" type="date" required>
+                </div>
+            </div>
+
+            <label for="initialStatus">Статус *</label>
+            <select id="initialStatus" required>
+                <option>На рассмотрении</option>
+                <option>В работе</option>
+                <option>Завершён</option>
+            </select>
+
+            <button type="submit">Зарегистрировать</button>
+        </form>
+
+        <div id="registrationMessage" class="result" role="status"></div>
+
+        <h3>Статистика по направлениям</h3>
+        <div id="directionStats" class="stats"></div>
+
+        <h3>Зарегистрированные проекты</h3>
+        <label for="projectSearch">Поиск по названию</label>
+        <input id="projectSearch" type="search" placeholder="Введи название проекта">
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Участник</th>
+                        <th>Направление</th>
+                        <th>Дата</th>
+                        <th>Статус</th>
+                    </tr>
+                </thead>
+                <tbody id="registeredProjects"></tbody>
+            </table>
+        </div>
+        <p id="tableMessage" class="empty"></p>
+    </section>
+
+    <footer>JavaScript практическая работа · задания 155–160</footer>
+</div>
+
+<script src="script2.js"></script>
+</body>
+</html>
